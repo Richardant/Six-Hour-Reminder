@@ -18,7 +18,7 @@ import java.time.Instant;
 @Slf4j
 @PluginDescriptor(
 		name = "Six Hour Reminder",
-		description = "Reminds you when you are close to six hours force logout.",
+		description = "Reminds you when you're about to be 6hr logged.",
 		tags = {"richardant", "6h", "logout", "six", "reminder", "log", "hour"}
 )
 public class SixHourReminderPlugin extends Plugin {
