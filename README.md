@@ -1,4 +1,4 @@
-## Six Hour Reminder
+# Six Hour Reminder
 A simple plugin that adds an overlay when you're about to get 6h force logout.
 
 
