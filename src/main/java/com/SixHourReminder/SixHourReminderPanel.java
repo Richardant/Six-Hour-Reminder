@@ -18,16 +18,12 @@ public class SixHourReminderPanel extends OverlayPanel {
     private final SixHourReminderPlugin plugin;
 
     private final SixHourReminderConfig config;
-
-    private final Font font;
-
+    
     @Inject
     private SixHourReminderPanel(SixHourReminderPlugin plugin, SixHourReminderConfig config) {
         setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
-        setPriority(OverlayPriority.HIGH);
         this.plugin = plugin;
         this.config = config;
-        this.font = new Font("SansSerif", 0, 11);
     }
 
     public Dimension render(Graphics2D graphics) {
@@ -37,7 +33,7 @@ public class SixHourReminderPanel extends OverlayPanel {
             if (360 - minutes <= this.config.sixHourReminderTime()) {
                 this.panelComponent.getChildren().clear();
                 String seconds = formatTime(21600 - time);
-                LineComponent lineComponent = LineComponent.builder().left("6HR LOG").leftColor(Color.red).right(seconds).build();
+                LineComponent lineComponent = LineComponent.builder().left("6H LOGOUT").leftColor(Color.red).right(seconds).build();
                 this.panelComponent.getChildren().add(lineComponent);
                 return this.panelComponent.render(graphics);
             }
@@ -46,7 +42,7 @@ public class SixHourReminderPanel extends OverlayPanel {
     }
 
     private String formatTime(int millis) {
-        return String.format("%d:%02d", new Object[] { Long.valueOf(TimeUnit.SECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1L)),
-                Long.valueOf(TimeUnit.SECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1L)) });
+        return String.format("%d:%02d", TimeUnit.SECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1L),
+                TimeUnit.SECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1L));
     }
 }
