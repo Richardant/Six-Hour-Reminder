@@ -48,7 +48,7 @@ public class SixHourReminderPlugin extends Plugin {
     }
   
     @Provides
-    SixHourReminderConfig getConfig(ConfigManager configManager) {
+    SixHourReminderConfig provideConfig(ConfigManager configManager) {
         return configManager.getConfig(SixHourReminderConfig.class);
     }
 
