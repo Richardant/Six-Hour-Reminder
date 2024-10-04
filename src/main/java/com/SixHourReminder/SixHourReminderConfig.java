@@ -8,10 +8,15 @@ import net.runelite.client.config.Units;
 
 @ConfigGroup("sixhourreminder")
 public interface SixHourReminderConfig extends Config {
-    @Units(" mins")
+    @ConfigItem(
+            keyName = "sixHourReminderTime",
+            name = "Time until 6h",
+            description = "Amount of time before the overlay appears until 6h logout"
+    )
+    @Units(Units.MINUTES)
     @Range(min = 1, max = 60)
-    @ConfigItem(keyName = "sixHourReminderTime", name = "Time until 6hr", description = "Show overlay of the time until 6hr log (minutes)")
-    default int sixHourReminderTime() {
+    default int sixHourReminderTime()
+    {
         return 30;
     }
 }
