@@ -31,7 +31,15 @@ public class SixHourReminderPanel extends OverlayPanel {
             if (360 - minutes <= this.config.sixHourReminderTime()) {
                 this.panelComponent.getChildren().clear();
                 String seconds = formatTime(21600 - time);
-                LineComponent lineComponent = LineComponent.builder().left("6H LOGOUT").leftColor(Color.red).right(seconds).build();
+                String overtime = formatTime(time - 21600);
+                LineComponent lineComponent;
+                if(21600 > time) {
+                    lineComponent = LineComponent.builder().left("6H LOGOUT").leftColor(Color.red).right(seconds).build();
+                }
+                else
+                {
+                    lineComponent = LineComponent.builder().left("OVERTIME").leftColor(Color.red).right(overtime).build();
+                }
                 this.panelComponent.getChildren().add(lineComponent);
                 return this.panelComponent.render(graphics);
             }
