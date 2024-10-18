@@ -43,6 +43,23 @@ public class SixHourReminderPanel extends OverlayPanel {
                 this.panelComponent.getChildren().add(lineComponent);
                 return this.panelComponent.render(graphics);
             }
+            else if (config.previewMode()) {
+                int previewtime = (360 - config.sixHourReminderTime()) * 60;
+                int timep = (int)Math.floor(Duration.between(this.plugin.getSixhourTimePreview(), Instant.now()).getSeconds()) + previewtime;
+                this.panelComponent.getChildren().clear();
+                String seconds = formatTime(21600 - timep);
+                String overtime = formatTime(timep - 21600);
+                LineComponent lineComponent;
+                if(21600 > timep) {
+                    lineComponent = LineComponent.builder().left("6H LOGOUT").leftColor(Color.red).right(seconds).build();
+                }
+                else
+                {
+                    lineComponent = LineComponent.builder().left("OVERTIME").leftColor(Color.red).right(overtime).build();
+                }
+                this.panelComponent.getChildren().add(lineComponent);
+                return this.panelComponent.render(graphics);
+            }
         }
         return null;
     }

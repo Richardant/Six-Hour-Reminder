@@ -9,6 +9,7 @@ import net.runelite.api.GameState;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -41,10 +42,17 @@ public class SixHourReminderPlugin extends Plugin {
 
     private Instant sixhourTime;
 
+    private Instant sixhourTimePreview;
+
+
     private boolean sixhourReady;
 
     public Instant getSixhourTime() {
         return this.sixhourTime;
+    }
+
+    public Instant getSixhourTimePreview() {
+        return this.sixhourTimePreview;
     }
   
     @Provides
@@ -63,6 +71,13 @@ public class SixHourReminderPlugin extends Plugin {
     }
 
     @Subscribe
+    private void onConfigChanged(ConfigChanged e) {
+        if (e.getGroup().equals("sixhourreminder"))
+            if (e.getKey().equals("enablePreview") || e.getKey().equals("sixHourReminderTime"))
+                this.sixhourTimePreview = Instant.now();
+    }
+
+    @Subscribe
     public void onGameStateChanged(GameStateChanged event) {
         GameState state = event.getGameState();
         switch (state) {
@@ -77,10 +92,12 @@ public class SixHourReminderPlugin extends Plugin {
             case LOGGED_IN:
                 if (this.ready) {
                     this.loginTime = Instant.now();
+                    this.sixhourTimePreview = Instant.now();
                     this.ready = false;
                 }
                 if (this.sixhourReady) {
                     this.sixhourTime = Instant.now();
+                    this.sixhourTimePreview = Instant.now();
                     this.sixhourReady = false;
                 }
                 break;
