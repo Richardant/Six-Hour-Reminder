@@ -44,7 +44,6 @@ public class SixHourReminderPlugin extends Plugin {
 
     private Instant sixhourTimePreview;
 
-
     private boolean sixhourReady;
 
     public Instant getSixhourTime() {
