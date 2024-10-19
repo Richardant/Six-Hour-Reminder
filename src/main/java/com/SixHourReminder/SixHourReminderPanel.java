@@ -41,7 +41,7 @@ public class SixHourReminderPanel extends OverlayPanel {
                     lineComponent = LineComponent.builder().left("OVERTIME").leftColor(Color.red).right(overtime).build();
                 }
                 this.panelComponent.getChildren().add(lineComponent);
-                return this.panelComponent.render(graphics);
+                return super.render(graphics);
             }
             else if (config.previewMode()) {
                 int previewtime = (360 - config.sixHourReminderTime()) * 60;
@@ -58,7 +58,7 @@ public class SixHourReminderPanel extends OverlayPanel {
                     lineComponent = LineComponent.builder().left("OVERTIME").leftColor(Color.red).right(overtime).build();
                 }
                 this.panelComponent.getChildren().add(lineComponent);
-                return this.panelComponent.render(graphics);
+                return super.render(graphics);
             }
         }
         return null;
